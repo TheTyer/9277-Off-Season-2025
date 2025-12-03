@@ -113,4 +113,25 @@ public class Constants {
         public static final int kController_leftTrigger = 7;
         public static final int kController_rightTrigger = 8;
     } 
+    
+
+   
+    
+    public final class ShooterConstants {
+        //sets CAN ID for motors
+        public static final int shooter_motorTopId = 20;
+        public static final int shooter_motorBottomId = 21;
+    
+        public static final int shooter_currentLimit = 60;//Maximum amps motor will experience even when stalling
+    
+        public static final double shooter_speedIdle   = 0.05;
+        public static final double shooter_speedAmp    = 0.30;
+        public static final double shooter_speedSpeaker = 0.95;
+        public static final double shooter_speedSpit    = -0.25;
+    
+        public static final int shooter_rpmTolerance = 75;
+    }
+    
+    
+
 }

@@ -13,10 +13,10 @@ import edu.wpi.first.wpilibj2.command.Commands;
 // ===== Input Devices ===== //
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
-
+import frc.robot.commands.ShooterCmd;
 // ===== Swerve Specific ===== //
 import frc.robot.commands.SwerveJoystickCmd;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
 
@@ -29,6 +29,8 @@ public class RobotContainer {
 
     // Subsystems
     private final SwerveSubsystem swerveSubsystem;
+    private final ShooterSubsystem shooterSubsystem; 
+
 
     // Control Inputs
     private final Joystick controller = new Joystick(OIConstants.kOperatorControllerPort);
@@ -38,6 +40,7 @@ public class RobotContainer {
     public RobotContainer() {
 
         swerveSubsystem = new SwerveSubsystem();
+        shooterSubsystem = new ShooterSubsystem(); // Initialize shooter
 
 
         swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
@@ -58,6 +61,19 @@ public class RobotContainer {
 
         new JoystickButton(controller, OIConstants.kDriverResetGyroButtonId).onTrue(swerveSubsystem.zeroHeading());
         // new JoystickButton(controller, OIConstants.kDriverStopButtonId).onTrue(new EmergencyStopMechanismsCmd());
+
+
+        // Example: Button A runs AMP mode while held
+        new JoystickButton(controller, OIConstants.kController_a)
+                .whileTrue(new ShooterCmd(shooterSubsystem, ShooterSubsystem.ShooterState.AMP));
+
+        // Button B runs SPEAKER mode while held
+        new JoystickButton(controller, OIConstants.kController_b)
+                .whileTrue(new ShooterCmd(shooterSubsystem, ShooterSubsystem.ShooterState.SPEAKER));
+
+        // Button X runs SPIT mode while held
+        new JoystickButton(controller, OIConstants.kController_x)
+                .whileTrue(new ShooterCmd(shooterSubsystem, ShooterSubsystem.ShooterState.SPIT));
     }
 
 
